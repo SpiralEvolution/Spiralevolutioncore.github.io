@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌀 Spiral - Communication Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: #0a0a0a;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            padding: 60px 30px 30px;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #1a1a1a;
+            margin: 0 20px;
+            border-radius: 25px;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: #888;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 11px;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 0 30px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00d4ff;
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .button {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .celebrity-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .celebrity-card:hover {
+            border-color: #00d4ff;
+            transform: scale(1.05);
+        }
+
+        .celebrity-card.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .celebrity-emoji {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .celebrity-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .celebrity-style {
+            font-size: 11px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .response-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .response-style {
+            font-size: 12px;
+            background: rgba(0, 212, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 10px;
+            color: #00d4ff;
+        }
+
+        .response-text {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .psychology-tip {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .psychology-tip h4 {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 15px;
+            background: #1a1a1a;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-emoji {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .language-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .language-btn {
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover, .language-btn.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .copy-btn {
+            background: #28a745;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .intensity-slider {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #333;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .quick-actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quick-action {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:hover {
+            transform: scale(1.1);
+        }
+
+        .demo-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 193, 7, 0.9);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-indicator">🚀 PROTOTYPE</div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">🌀</div>
+            <h1>Spiral</h1>
+            <p class="tagline">Your English Evolution Never Stops</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('home')">🏠 Home</button>
+            <button class="nav-tab" onclick="showTab('translate')">🌍 Translate</button>
+            <button class="nav-tab" onclick="showTab('reply')">💬 Reply</button>
+            <button class="nav-tab" onclick="showTab('celebrity')">🎭 Celebrity</button>
+            <button class="nav-tab" onclick="showTab('psychology')">🧠 Psychology</button>
+        </nav>
+
+        <!-- HOME TAB -->
+        <div class="content active" id="home">
+            <h2>Welcome to Spiral! 🎉</h2>
+            <p style="margin-bottom: 30px; line-height: 1.6; color: #ccc;">
+                Transform your communication with AI-powered translation, celebrity styles, and psychology-backed responses.
+            </p>
+            
+            <ul class="feature-list">
+                <li>
+                    <span class="feature-emoji">🌍</span>
+                    <div>
+                        <strong>Universal Translation</strong><br>
+                        <small style="color: #888;">150+ languages with cultural intelligence</small>
+                    </div>
+                </li>
+                <li>
+                    <span class="feature-emoji">🎭</span>
+                    <div>
+                        <strong>Celebrity Voice Cloning</strong><br>
+                        <small style="color: #888;">Communicate like Obama, Elon, or The Rock</small>
+                    </div>
+                </li>
+                <li>
+                    <span class="feature-emoji">💬</span>
+                    <div>
+                        <strong>Smart Replies</strong><br>
+                        <small style="color: #888;">AI detects intent and generates perfect responses</small>
+                    </div>
+                </li>
+                <li>
+                    <span class="feature-emoji">🧠</span>
+                    <div>
+                        <strong>Psychology Hacks</strong><br>
+                        <small style="color: #888;">Persuasion techniques and influence mastery</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- TRANSLATION TAB -->
+        <div class="content" id="translate">
+            <h2>🌍 Universal Translator</h2>
+            
+            <div class="input-group">
+                <label>From Language:</label>
+                <div class="language-selector">
+                    <button class="language-btn selected" data-lang="en">🇺🇸 English</button>
+                    <button class="language-btn" data-lang="es">🇪🇸 Spanish</button>
+                    <button class="language-btn" data-lang="fr">🇫🇷 French</button>
+                    <button class="language-btn" data-lang="de">🇩🇪 German</button>
+                    <button class="language-btn" data-lang="zh">🇨🇳 Chinese</button>
+                    <button class="language-btn" data-lang="ja">🇯🇵 Japanese</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Enter text to translate:</label>
+                <textarea class="input-field" id="translateInput" placeholder="Type or speak your message here..."></textarea>
+            </div>
+
+            <button class="button" onclick="translateText()">🔄 Translate with Cultural Context</button>
+
+            <div id="translationResults"></div>
+        </div>
+
+        <!-- SMART REPLY TAB -->
+        <div class="content" id="reply">
+            <h2>💬 Smart Reply Generator</h2>
+            
+            <div class="input-group">
+                <label>Received Message:</label>
+                <textarea class="input-field" id="receivedMessage" placeholder="Paste the message you received here..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Relationship Context:</label>
+                <select class="input-field" id="relationshipContext">
+                    <option value="colleague">👔 Colleague</option>
+                    <option value="boss">👨‍💼 Boss</option>
+                    <option value="friend">👫 Friend</option>
+                    <option value="client">🤝 Client</option>
+                    <option value="family">👨‍👩‍👧‍👦 Family</option>
+                    <option value="stranger">🤷‍♂️ Stranger</option>
+                </select>
+            </div>
+
+            <button class="button" onclick="generateReplies()">✨ Generate Smart Replies</button>
+
+            <div id="replyResults"></div>
+        </div>
+
+        <!-- CELEBRITY STYLE TAB -->
+        <div class="content" id="celebrity">
+            <h2>🎭 Celebrity Style Cloning</h2>
+            
+            <div class="input-group">
+                <label>Your Message:</label>
+                <textarea class="input-field" id="celebrityInput" placeholder="Enter your message to transform..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Choose Celebrity Style:</label>
+                <div class="celebrity-grid">
+                    <div class="celebrity-card" onclick="selectCelebrity('obama')" data-celebrity="obama">
+                        <span class="celebrity-emoji">🎤</span>
+                        <div class="celebrity-name">Barack Obama</div>
+                        <div class="celebrity-style">Thoughtful & Inspiring</div>
+                    </div>
+                    <div class="celebrity-card" onclick="selectCelebrity('elon')" data-celebrity="elon">
+                        <span class="celebrity-emoji">🚀</span>
+                        <div class="celebrity-name">Elon Musk</div>
+                        <div class="celebrity-style">Innovative & Direct</div>
+                    </div>
+                    <div class="celebrity-card" onclick="selectCelebrity('rock')" data-celebrity="rock">
+                        <span class="celebrity-emoji">💪</span>
+                        <div class="celebrity-name">The Rock</div>
+                        <div class="celebrity-style">Motivational & Positive</div>
+                    </div>
+                    <div class="celebrity-card" onclick="selectCelebrity('reynolds')" data-celebrity="reynolds">
+                        <span class="celebrity-emoji">😎</span>
+                        <div class="celebrity-name">Ryan Reynolds</div>
+                        <div class="celebrity-style">Witty & Self-Deprecating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intensity-slider">
+                <label>Style Intensity:</label>
+                <input type="range" min="1" max="10" value="7" class="slider" id="intensitySlider">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">
+                    <span>Subtle</span>
+                    <span>Full Character</span>
+                </div>
+            </div>
+
+            <button class="button" onclick="applyCelebrityStyle()">🎭 Transform Message</button>
+
+            <div id="celebrityResults"></div>
+        </div>
+
+        <!-- PSYCHOLOGY TAB -->
+        <div class="content" id="psychology">
+            <h2>🧠 Psychology & Communication Hacks</h2>
+            
+            <div class="psychology-tip">
+                <h4>🔥 Today's Psychology Tip</h4>
+                <p><strong>The "Because" Effect:</strong> Adding "because" + any reason to requests increases compliance by 60%. Even weak reasons work!</p>
+                <p><em>Example: "Can you help me because I need your expertise?" vs "Can you help me?"</em></p>
+            </div>
+
+            <div class="input-group">
+                <label>Your Message:</label>
+                <textarea class="input-field" id="psychologyInput" placeholder="Enter your message to enhance with psychology..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Psychology Technique:</label>
+                <select class="input-field" id="psychologyTechnique">
+                    <option value="reciprocity">🤝 Reciprocity (Give first)</option>
+                    <option value="social_proof">👥 Social Proof (Others do it)</option>
+                    <option value="authority">👑 Authority (Expertise)</option>
+                    <option value="scarcity">⏰ Scarcity (Limited time)</option>
+                    <option value="consistency">✅ Consistency (Commitment)</option>
+                    <option value="liking">❤️ Liking (Similarity)</option>
+                </select>
+            </div>
+
+            <button class="button" onclick="enhanceWithPsychology()">🧠 Apply Psychology Techniques</button>
+
+            <div id="psychologyResults"></div>
+
+            <div style="margin-top: 30px;">
+                <h3 style="color: #00d4ff; margin-bottom: 15px;">📚 Quick Psychology Reference</h3>
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 15px;">
+                    <p style="margin-bottom: 10px;"><strong>💡 Persuasion Frameworks:</strong></p>
+                    <ul style="list-style: none; font-size: 14px; color: #ccc;">
+                        <li>• AIDA: Attention → Interest → Desire → Action</li>
+                        <li>• PAS: Problem → Agitation → Solution</li>
+                        <li>• FOMO: Fear of Missing Out triggers</li>
+                        <li>• Yes Ladder: Series of small agreements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-action" onclick="voiceInput()" title="Voice Input">🎤</button>
+            <button class="quick-action" onclick="copyToClipboard()" title="Copy Results">📋</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedCelebrity = '';
+        let currentResults = '';
+
+        function showTab(tabName) {
+            // Hide all content
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected content and activate tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function translateText() {
+            const input = document.getElementById('translateInput').value;
+            if (!input.trim()) return;
+
+            const results = document.getElementById('translationResults');
+            results.innerHTML = `
+                <div class="response-card">
+                    <div class="response-header">
+                        <span class="response-st
